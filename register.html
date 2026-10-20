@@ -81,10 +81,10 @@
       <!-- Registration Form -->
       <div class="form-card">
         <h2 style="margin-bottom: 24px;">Participant Details</h2>
-        <form data-demo-form>
+        <form id="register-form">
           <!-- Campo Honeypot Oculto (Anti-Spam Bot) -->
           <div style="display:none;" aria-hidden="true">
-            <input type="text" id="website_honeypot" name="website_honeypot" tabindex="-1" autocomplete="off">
+            <input type="text" id="not_hp" name="not_hp" tabindex="-1" autocomplete="off">
           </div>
 
           <div class="form-grid">
@@ -187,54 +187,7 @@
   </div>
 </footer>
 <script src="assets/js/site.js"></script>
-<script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbxoylOcW1F7wQVDsez3DXjEdAiWu_1LSUegpoTjuwhFuo4jcJy9LSZmjIQPouH4lb_RNQ/exec';
-
-  document.querySelector('form[data-demo-form]').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    var honeypot = document.getElementById('website_honeypot').value;
-    if (honeypot !== "") {
-      return false;
-    }
-
-    var submitBtn = document.getElementById('submit-btn');
-    submitBtn.disabled = true;
-    submitBtn.innerText = "Sending details...";
-
-    // Monta o objeto JSON com os dados exatos do formulário
-    var data = {
-      firstName: document.getElementById('first-name').value.trim(),
-      lastName: document.getElementById('last-name').value.trim(),
-      email: document.getElementById('email').value.trim(),
-      affiliation: document.getElementById('affiliation').value.trim(),
-      regType: document.getElementById('reg-type').value,
-      sbcMember: document.getElementById('sbc-member').value,
-      website_honeypot: honeypot
-    };
-
-    fetch(scriptURL, { 
-      method: 'POST', 
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
-      body: JSON.stringify(data)
-    })
-    .then(response => {
-      alert("Success! Your registration details have been submitted.\n\nNext step: Please complete your payment via PIX/Bank Transfer and email your proof of payment and SBC membership proof to andre.albiani.b.jr@gmail.com.");
-      
-      this.reset();
-      submitBtn.disabled = false;
-      submitBtn.innerText = "Submit Registration Details";
-    })
-    .catch(error => {
-      alert("Notice: Registration details submitted, but please confirm by sending your proofs directly to andre.albiani.b.jr@gmail.com.");
-      submitBtn.disabled = false;
-      submitBtn.innerText = "Submit Registration Details";
-    });
-  });
-</script>
+<script src="assets/js/register.js"></script>
 
 </body>
 </html>
